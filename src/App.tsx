@@ -11,6 +11,8 @@ import { convertPolishChars } from "./utils/convertPolishChars";
 
 const GITHUB_API_URL =
     "https://api.github.com/repos/filipbiernat/RScraper/contents/data";
+const GITHUB_RAW_URL =
+    "https://raw.githubusercontent.com/filipbiernat/RScraper/master/data";
 
 const App: React.FC = () => {
     const [csvFiles, setCsvFiles] = useState<string[]>([]);
@@ -52,7 +54,7 @@ const App: React.FC = () => {
                                 )}`}
                                 element={
                                     <TableView
-                                        filePath={`https://raw.githubusercontent.com/filipbiernat/RScraper/master/data/${file}`}
+                                        filePath={`${GITHUB_RAW_URL}/${file}`}
                                     />
                                 }
                             />
@@ -65,4 +67,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
