@@ -46,15 +46,16 @@ const App: React.FC = () => {
                                 }
                             />
                         )}
-                        {csvFiles.map((file) => (
+                        {csvFiles.map((csvFile) => (
                             <Route
-                                key={file}
+                                key={csvFile}
                                 path={`/${convertPolishChars(
-                                    file.replace(".csv", "")
+                                    csvFile.replace(".csv", "")
                                 )}`}
                                 element={
                                     <TableView
-                                        csvFilePath={`${GITHUB_RAW_URL}/${file}`}
+                                        csvFilePath={`${GITHUB_RAW_URL}/${csvFile}`}
+                                        fileName={csvFile.replace(".csv", "")}
                                     />
                                 }
                             />
