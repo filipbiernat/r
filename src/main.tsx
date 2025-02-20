@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./scenes/Sidebar";
 import TitleBar from "./components/TitleBar";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -16,4 +16,3 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         </div>
     </React.StrictMode>
 );
-
