@@ -2,20 +2,28 @@ import React, { useEffect, useState } from "react";
 import Papa from "papaparse";
 
 interface TableViewProps {
-    filePath: string;
+    csvFilePath: string;
 }
 
-const TableView: React.FC<TableViewProps> = ({ filePath }) => {
+const csvFileCache: { [key: string]: string[][] } = {};
+
+const TableView: React.FC<TableViewProps> = ({ csvFilePath: csvFilePath }) => {
     const [data, setData] = useState<string[][]>([]);
 
     useEffect(() => {
-        Papa.parse(filePath, {
-            download: true,
-            complete: (result) => {
-                setData(result.data as string[][]);
-            },
-        });
-    }, [filePath]);
+        if (csvFileCache[csvFilePath]) {
+            setData(csvFileCache[csvFilePath]);
+        } else {
+            Papa.parse(csvFilePath, {
+                download: true,
+                complete: (result) => {
+                    const parsedData = result.data as string[][];
+                    csvFileCache[csvFilePath] = parsedData;
+                    setData(parsedData);
+                },
+            });
+        }
+    }, [csvFilePath]);
 
     return (
         <div>

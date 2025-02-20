@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
+import Sidebar from "./components/Sidebar";
+import TableView from "./components/TableView";
+import { convertPolishChars } from "./utils/convertPolishChars";
 import {
     BrowserRouter as Router,
     Route,
     Routes,
     Navigate,
 } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
-import TableView from "./components/TableView";
-import { convertPolishChars } from "./utils/convertPolishChars";
 
 const GITHUB_API_URL =
     "https://api.github.com/repos/filipbiernat/RScraper/contents/data";
@@ -54,7 +54,7 @@ const App: React.FC = () => {
                                 )}`}
                                 element={
                                     <TableView
-                                        filePath={`${GITHUB_RAW_URL}/${file}`}
+                                        csvFilePath={`${GITHUB_RAW_URL}/${file}`}
                                     />
                                 }
                             />
