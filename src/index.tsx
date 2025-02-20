@@ -2,17 +2,10 @@ import "bootstrap/dist/css/bootstrap.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import Sidebar from "./scenes/Sidebar";
-import TitleBar from "./components/TitleBar";
+import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
-        <div>
-            <TitleBar />
-            <div style={{ display: "flex" }}>
-                <Sidebar />
-                <App />
-            </div>
-        </div>
+        <App />
     </React.StrictMode>
 );
