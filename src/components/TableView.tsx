@@ -30,6 +30,10 @@ const TableView: React.FC<TableViewProps> = ({
         }
     }, [csvFilePath]);
 
+    useEffect(() => {
+        document.title = "R: " + parseFileName(csvFileName);
+    }, [csvFileName]);
+
     return (
         <div>
             <h2>{parseFileName(csvFileName)}</h2>
