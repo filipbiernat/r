@@ -8,6 +8,8 @@ import {
     Routes,
     Navigate,
 } from "react-router-dom";
+import { CssBaseline, ThemeProvider, Theme } from "@mui/material";
+import { ColorModeContext, useMode } from "./theme";
 
 const GITHUB_API_URL =
     "https://api.github.com/repos/filipbiernat/RScraper/contents/data";
@@ -16,6 +18,10 @@ const GITHUB_RAW_URL =
 
 const App: React.FC = () => {
     const [csvFiles, setCsvFiles] = useState<string[]>([]);
+    const [theme, colorMode] = useMode() as [
+        Theme,
+        { toggleColorMode: () => void }
+    ];
 
     useEffect(() => {
         fetch(GITHUB_API_URL)
@@ -29,41 +35,52 @@ const App: React.FC = () => {
     }, []);
 
     return (
-        <Router>
-            <div style={{ display: "flex" }}>
-                <Sidebar csvFiles={csvFiles} />
-                <div style={{ marginLeft: "200px", padding: "20px" }}>
-                    <Routes>
-                        {csvFiles.length > 0 && (
-                            <Route
-                                path="/"
-                                element={
-                                    <Navigate
-                                        to={`/${convertPolishChars(
-                                            csvFiles[0].replace(".csv", "")
+        <ColorModeContext.Provider value={colorMode}>
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <Router>
+                    <div style={{ display: "flex" }}>
+                        <Sidebar csvFiles={csvFiles} />
+                        <div style={{ marginLeft: "200px", padding: "20px" }}>
+                            <Routes>
+                                {csvFiles.length > 0 && (
+                                    <Route
+                                        path="/"
+                                        element={
+                                            <Navigate
+                                                to={`/${convertPolishChars(
+                                                    csvFiles[0].replace(
+                                                        ".csv",
+                                                        ""
+                                                    )
+                                                )}`}
+                                            />
+                                        }
+                                    />
+                                )}
+                                {csvFiles.map((csvFile) => (
+                                    <Route
+                                        key={csvFile}
+                                        path={`/${convertPolishChars(
+                                            csvFile.replace(".csv", "")
                                         )}`}
+                                        element={
+                                            <TableView
+                                                csvFilePath={`${GITHUB_RAW_URL}/${csvFile}`}
+                                                fileName={csvFile.replace(
+                                                    ".csv",
+                                                    ""
+                                                )}
+                                            />
+                                        }
                                     />
-                                }
-                            />
-                        )}
-                        {csvFiles.map((csvFile) => (
-                            <Route
-                                key={csvFile}
-                                path={`/${convertPolishChars(
-                                    csvFile.replace(".csv", "")
-                                )}`}
-                                element={
-                                    <TableView
-                                        csvFilePath={`${GITHUB_RAW_URL}/${csvFile}`}
-                                        fileName={csvFile.replace(".csv", "")}
-                                    />
-                                }
-                            />
-                        ))}
-                    </Routes>
-                </div>
-            </div>
-        </Router>
+                                ))}
+                            </Routes>
+                        </div>
+                    </div>
+                </Router>
+            </ThemeProvider>
+        </ColorModeContext.Provider>
     );
 };
 

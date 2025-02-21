@@ -36,7 +36,7 @@ const TableView: React.FC<TableViewProps> = ({
 
     return (
         <div>
-            <h2>{parseFileName(csvFileName)}</h2>
+            <h1>{parseFileName(csvFileName)}</h1>
             <table>
                 <thead>
                     <tr>
