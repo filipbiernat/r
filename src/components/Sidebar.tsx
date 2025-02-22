@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { convertPolishChars } from "../utils/convertPolishChars";
 import { parseFileName } from "../utils/parseFileName";
-import { tokens } from "../theme";
+import { tokens } from "../styles/theme";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import "react-pro-sidebar/dist/css/styles.css";
 import styled from "styled-components";
+import { sidebarStyles } from "../styles/sidebarStyles";
 
 interface SidebarProps {
     csvFiles: string[];
@@ -21,27 +22,7 @@ const Sidebar: React.FC<SidebarProps> = ({ csvFiles }) => {
 
     return (
         <Container>
-            <Box
-                className="sideBar"
-                sx={{
-                    "& .pro-sidebar-inner": {
-                        background: `${colors.primary[400]} !important`,
-                    },
-                    "& .pro-icon-wrapper": {
-                        backgroundColor: "transparent !important",
-                    },
-                    "& .pro-inner-item": {
-                        padding: "5px 35px 5px 20px !important",
-                    },
-                    "& .pro-inner-item:hover": {
-                        color: "#868dfb !important",
-                    },
-                    "& .pro-menu-item.active": {
-                        color: "#6870fa !important",
-                        background: `${colors.primary[450]}`,
-                    },
-                }}
-            >
+            <Box className="sideBar" sx={sidebarStyles(colors)}>
                 <ProSidebar collapsed={isCollapsed}>
                     <Menu iconShape="square">
                         <MenuItem

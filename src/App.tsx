@@ -9,7 +9,7 @@ import {
     Navigate,
 } from "react-router-dom";
 import { CssBaseline, ThemeProvider, Theme } from "@mui/material";
-import { ColorModeContext, useMode } from "./theme";
+import { ColorModeContext, useMode } from "./styles/theme";
 
 const GITHUB_API_URL =
     "https://api.github.com/repos/filipbiernat/RScraper/contents/data";
