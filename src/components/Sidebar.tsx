@@ -18,7 +18,7 @@ const Sidebar: React.FC<SidebarProps> = ({ csvFiles }) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const [selected, setSelected] = useState("Dashboard"); //FIXME FB from first file
+    const [selected, setSelected] = useState(0);
 
     return (
         <Container>
@@ -59,25 +59,23 @@ const Sidebar: React.FC<SidebarProps> = ({ csvFiles }) => {
                             )}
                         </MenuItem>
 
-                        {csvFiles.map((file) => {
-                            const fileNameWithoutSuffix = file.replace(
+                        {csvFiles.map((fileNameWithSuffix, index) => {
+                            const fileName = fileNameWithSuffix.replace(
                                 ".csv",
                                 ""
                             );
-                            const displayName = parseFileName(
-                                fileNameWithoutSuffix
-                            );
-                            const pathName = convertPolishChars(
-                                fileNameWithoutSuffix
-                            );
                             return (
                                 <MenuItem
-                                    key={file}
-                                    active={selected === file}
-                                    onClick={() => setSelected(file)}
+                                    key={index}
+                                    active={selected === index}
+                                    onClick={() => setSelected(index)}
                                 >
-                                    <Link to={`/${pathName}`}>
-                                        <Typography>{displayName}</Typography>
+                                    <Link
+                                        to={`/${convertPolishChars(fileName)}`}
+                                    >
+                                        <Typography>
+                                            {parseFileName(fileName)}
+                                        </Typography>
                                     </Link>
                                 </MenuItem>
                             );
