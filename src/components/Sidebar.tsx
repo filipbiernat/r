@@ -1,20 +1,21 @@
-import React, { useState } from "react";
-import { convertPolishChars } from "../utils/convertPolishChars";
-import { parseFileName } from "../utils/parseFileName";
-import { tokens } from "../styles/theme";
+import { useState, FC } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import "react-pro-sidebar/dist/css/styles.css";
 import styled from "styled-components";
+import "react-pro-sidebar/dist/css/styles.css";
+
+import { convertPolishChars } from "../utils/convertPolishChars";
+import { parseFileName } from "../utils/parseFileName";
+import { tokens } from "../styles/theme";
 import { sidebarStyles } from "../styles/sidebarStyles";
 
 interface SidebarProps {
     csvFiles: string[];
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ csvFiles }) => {
+const Sidebar: FC<SidebarProps> = ({ csvFiles }) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -22,8 +23,12 @@ const Sidebar: React.FC<SidebarProps> = ({ csvFiles }) => {
 
     return (
         <Container>
-            <Box className="sideBar" sx={sidebarStyles(colors)}>
-                <ProSidebar collapsed={isCollapsed}>
+            <Box
+                className="sideBar"
+                sx={sidebarStyles(colors)}
+                style={{ height: "100%" }}
+            >
+                <ProSidebar collapsed={isCollapsed} style={{ height: "100%" }}>
                     <Menu iconShape="square">
                         <MenuItem
                             onClick={() => setIsCollapsed(!isCollapsed)}

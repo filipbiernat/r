@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, FC } from "react";
 import Papa from "papaparse";
+
 import { parseFileName } from "../utils/parseFileName";
 
 interface TableViewProps {
@@ -9,7 +10,7 @@ interface TableViewProps {
 
 const csvFileCache: { [key: string]: string[][] } = {};
 
-const TableView: React.FC<TableViewProps> = ({
+const TableView: FC<TableViewProps> = ({
     csvFilePath,
     fileName: csvFileName,
 }) => {

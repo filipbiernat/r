@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Sidebar from "./components/Sidebar";
-import TableView from "./components/TableView";
-import { convertPolishChars } from "./utils/convertPolishChars";
+import { useEffect, useState, FC } from "react";
 import {
     BrowserRouter as Router,
     Route,
@@ -9,6 +6,10 @@ import {
     Navigate,
 } from "react-router-dom";
 import { CssBaseline, ThemeProvider, Theme } from "@mui/material";
+
+import Sidebar from "./components/Sidebar";
+import TableView from "./components/TableView";
+import { convertPolishChars } from "./utils/convertPolishChars";
 import { ColorModeContext, useMode } from "./styles/theme";
 
 const GITHUB_API_URL =
@@ -16,7 +17,7 @@ const GITHUB_API_URL =
 const GITHUB_RAW_URL =
     "https://raw.githubusercontent.com/filipbiernat/RScraper/master/data";
 
-const App: React.FC = () => {
+const App: FC = () => {
     const [csvFiles, setCsvFiles] = useState<string[]>([]);
     const [theme, colorMode] = useMode() as [
         Theme,
@@ -39,9 +40,21 @@ const App: React.FC = () => {
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <Router>
-                    <div style={{ display: "flex" }}>
+                    <div
+                        style={{
+                            display: "flex",
+                            height: "100vh",
+                            overflow: "hidden",
+                        }}
+                    >
                         <Sidebar csvFiles={csvFiles} />
-                        <div style={{ marginLeft: "200px", padding: "20px" }}>
+                        <div
+                            style={{
+                                padding: "20px",
+                                flexGrow: 1,
+                                overflowY: "auto",
+                            }}
+                        >
                             <Routes>
                                 {csvFiles.length > 0 && (
                                     <Route
