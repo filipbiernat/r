@@ -6,6 +6,7 @@ import {
     Navigate,
 } from "react-router-dom";
 import { CssBaseline, ThemeProvider, Theme } from "@mui/material";
+import styled from "styled-components";
 
 import Sidebar from "./components/Sidebar";
 import TableView from "./components/TableView";
@@ -40,21 +41,9 @@ const App: FC = () => {
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <Router>
-                    <div
-                        style={{
-                            display: "flex",
-                            height: "100vh",
-                            overflow: "hidden",
-                        }}
-                    >
+                    <ContainerForSidebarAndView>
                         <Sidebar csvFiles={csvFiles} />
-                        <div
-                            style={{
-                                padding: "20px",
-                                flexGrow: 1,
-                                overflowY: "auto",
-                            }}
-                        >
+                        <ContenerForView>
                             <Routes>
                                 {csvFiles.length > 0 && (
                                     <Route
@@ -81,12 +70,24 @@ const App: FC = () => {
                                     />
                                 ))}
                             </Routes>
-                        </div>
-                    </div>
+                        </ContenerForView>
+                    </ContainerForSidebarAndView>
                 </Router>
             </ThemeProvider>
         </ColorModeContext.Provider>
     );
 };
+
+const ContainerForSidebarAndView = styled.div`
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+`; // The view appears on the RHS of the sidebar.
+
+const ContenerForView = styled.div`
+    padding: 20px;
+    flex-grow: 1;
+    overflow-y: auto;
+`; // The view is scrollable.
 
 export default App;

@@ -4,6 +4,7 @@ import { MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import { replacePolishChars } from "../utils/replacePolishChars";
 import { parseFileName } from "../utils/parseFileName";
+import styled from "styled-components";
 
 interface SidebarMenuProps {
     csvFiles: string[];
@@ -25,21 +26,21 @@ const SidebarMenu: FC<SidebarMenuProps> = ({
                     onClick={() => setSelected(fileName)}
                 >
                     <Link to={`/${replacePolishChars(fileName)}`}>
-                        <Typography
-                            style={{
-                                whiteSpace: "normal",
-                                wordBreak: "break-word",
-                                overflow: "hidden",
-                                textOverflow: "ellipsis",
-                            }}
-                        >
+                        <LongTextTypography>
                             {parseFileName(fileName)}
-                        </Typography>
+                        </LongTextTypography>
                     </Link>
                 </MenuItem>
             ))}
         </>
     );
 };
+
+const LongTextTypography = styled(Typography)`
+    white-space: normal;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+`; // Makes the text wrapped and adds ellipsis (...) if it's too long.
 
 export default SidebarMenu;

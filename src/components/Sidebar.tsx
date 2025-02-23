@@ -1,7 +1,6 @@
 import { useState, useEffect, FC } from "react";
 import { ProSidebar, Menu } from "react-pro-sidebar";
 import { Box, useTheme } from "@mui/material";
-import styled from "styled-components";
 import "react-pro-sidebar/dist/css/styles.css";
 
 import { replacePolishChars as replacePolishChars } from "../utils/replacePolishChars";
@@ -29,36 +28,30 @@ const Sidebar: FC<SidebarProps> = ({ csvFiles }) => {
     }, [csvFiles]);
 
     return (
-        <Container>
-            <Box
-                className="sideBar"
-                sx={sidebarStyles(colors)}
-                style={{ height: "100%" }}
-            >
-                <ProSidebar collapsed={isCollapsed} style={{ height: "100%" }}>
-                    <Menu iconShape="square">
-                        <SidebarHeader
-                            isCollapsed={isCollapsed}
-                            setIsCollapsed={setIsCollapsed}
-                            colors={colors}
-                        />
+        <Box
+            className="sideBar"
+            sx={sidebarStyles(colors)}
+            style={{ height: "100%" }}
+        >
+            <ProSidebar collapsed={isCollapsed}>
+                <Menu iconShape="square">
+                    <SidebarHeader
+                        isCollapsed={isCollapsed}
+                        setIsCollapsed={setIsCollapsed}
+                        colors={colors}
+                    />
 
-                        {!isCollapsed && (
-                            <SidebarMenu
-                                csvFiles={csvFiles}
-                                selected={selected}
-                                setSelected={setSelected}
-                            />
-                        )}
-                    </Menu>
-                </ProSidebar>
-            </Box>
-        </Container>
+                    {!isCollapsed && (
+                        <SidebarMenu
+                            csvFiles={csvFiles}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+                    )}
+                </Menu>
+            </ProSidebar>
+        </Box>
     );
 };
-
-const Container = styled.div`
-    height: 100vh;
-`;
 
 export default Sidebar;
