@@ -1,4 +1,4 @@
-import { useState, FC } from "react";
+import { useState, useEffect, FC } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
@@ -19,7 +19,15 @@ const Sidebar: FC<SidebarProps> = ({ csvFiles }) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const [selected, setSelected] = useState(0);
+    const [selected, setSelected] = useState("");
+
+    useEffect(() => {
+        const path = window.location.pathname.substring(1); // Remove leading '/'
+        const fileName = csvFiles.find((fileName) => {
+            return convertPolishChars(fileName) === path;
+        });
+        setSelected(fileName || csvFiles[0] || "");
+    }, [csvFiles]);
 
     return (
         <Container>
@@ -64,16 +72,14 @@ const Sidebar: FC<SidebarProps> = ({ csvFiles }) => {
                             )}
                         </MenuItem>
 
-                        {csvFiles.map((fileNameWithSuffix, index) => {
-                            const fileName = fileNameWithSuffix.replace(
-                                ".csv",
-                                ""
-                            );
+                        {csvFiles.map((fileName, index) => {
                             return (
                                 <MenuItem
                                     key={index}
-                                    active={selected === index}
-                                    onClick={() => setSelected(index)}
+                                    active={selected === fileName}
+                                    onClick={() => {
+                                        setSelected(fileName);
+                                    }}
                                 >
                                     <Link
                                         to={`/${convertPolishChars(fileName)}`}

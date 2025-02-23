@@ -30,7 +30,7 @@ const App: FC = () => {
             .then((data) => {
                 const csvFiles = data
                     .filter((file: any) => file.name.endsWith(".csv"))
-                    .map((file: any) => file.name);
+                    .map((file: any) => file.name.replace(".csv", ""));
                 setCsvFiles(csvFiles);
             });
     }, []);
@@ -62,10 +62,7 @@ const App: FC = () => {
                                         element={
                                             <Navigate
                                                 to={`/${convertPolishChars(
-                                                    csvFiles[0].replace(
-                                                        ".csv",
-                                                        ""
-                                                    )
+                                                    csvFiles[0]
                                                 )}`}
                                             />
                                         }
@@ -74,16 +71,11 @@ const App: FC = () => {
                                 {csvFiles.map((csvFile) => (
                                     <Route
                                         key={csvFile}
-                                        path={`/${convertPolishChars(
-                                            csvFile.replace(".csv", "")
-                                        )}`}
+                                        path={`/${convertPolishChars(csvFile)}`}
                                         element={
                                             <TableView
-                                                csvFilePath={`${GITHUB_RAW_URL}/${csvFile}`}
-                                                fileName={csvFile.replace(
-                                                    ".csv",
-                                                    ""
-                                                )}
+                                                csvFilePath={`${GITHUB_RAW_URL}/${csvFile}.csv`}
+                                                fileName={csvFile}
                                             />
                                         }
                                     />
