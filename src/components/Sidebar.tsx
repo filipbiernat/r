@@ -42,11 +42,14 @@ const Sidebar: FC<SidebarProps> = ({ csvFiles }) => {
                             setIsCollapsed={setIsCollapsed}
                             colors={colors}
                         />
-                        <SidebarMenu
-                            csvFiles={csvFiles}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
+
+                        {!isCollapsed && (
+                            <SidebarMenu
+                                csvFiles={csvFiles}
+                                selected={selected}
+                                setSelected={setSelected}
+                            />
+                        )}
                     </Menu>
                 </ProSidebar>
             </Box>

@@ -15,4 +15,12 @@ export const sidebarStyles = (colors: any) => ({
         color: "#6870fa !important",
         background: `${colors.primary[450]}`,
     },
+    "& .pro-sidebar": {
+        width: "360px",
+        minWidth: "360px",
+    },
+    "& .pro-sidebar.collapsed": {
+        width: "80px",
+        minWidth: "80px",
+    },
 });
