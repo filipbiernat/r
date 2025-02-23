@@ -1,15 +1,14 @@
 import { useState, useEffect, FC } from "react";
-import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { Link } from "react-router-dom";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import { ProSidebar, Menu } from "react-pro-sidebar";
+import { Box, useTheme } from "@mui/material";
 import styled from "styled-components";
 import "react-pro-sidebar/dist/css/styles.css";
 
-import { convertPolishChars } from "../utils/convertPolishChars";
-import { parseFileName } from "../utils/parseFileName";
+import { replacePolishChars as replacePolishChars } from "../utils/replacePolishChars";
 import { tokens } from "../styles/theme";
 import { sidebarStyles } from "../styles/sidebarStyles";
+import SidebarHeader from "./SidebarHeader";
+import SidebarMenu from "./SidebarMenu";
 
 interface SidebarProps {
     csvFiles: string[];
@@ -24,7 +23,7 @@ const Sidebar: FC<SidebarProps> = ({ csvFiles }) => {
     useEffect(() => {
         const path = window.location.pathname.substring(1); // Remove leading '/'
         const fileName = csvFiles.find((fileName) => {
-            return convertPolishChars(fileName) === path;
+            return replacePolishChars(fileName) === path;
         });
         setSelected(fileName || csvFiles[0] || "");
     }, [csvFiles]);
@@ -38,59 +37,16 @@ const Sidebar: FC<SidebarProps> = ({ csvFiles }) => {
             >
                 <ProSidebar collapsed={isCollapsed} style={{ height: "100%" }}>
                     <Menu iconShape="square">
-                        <MenuItem
-                            onClick={() => setIsCollapsed(!isCollapsed)}
-                            icon={
-                                isCollapsed ? <MenuOutlinedIcon /> : undefined
-                            }
-                            style={{
-                                margin: "10px 0 20px 0",
-                                color: colors.grey[100],
-                            }}
-                        >
-                            {!isCollapsed && (
-                                <Box
-                                    display="flex"
-                                    justifyContent="space-between"
-                                    alignItems="center"
-                                    ml="15px"
-                                >
-                                    <Typography
-                                        variant="h3"
-                                        color={colors.grey[100]}
-                                    >
-                                        Wybór wyjazdu
-                                    </Typography>
-                                    <IconButton
-                                        onClick={() =>
-                                            setIsCollapsed(!isCollapsed)
-                                        }
-                                    >
-                                        <MenuOutlinedIcon />
-                                    </IconButton>
-                                </Box>
-                            )}
-                        </MenuItem>
-
-                        {csvFiles.map((fileName, index) => {
-                            return (
-                                <MenuItem
-                                    key={index}
-                                    active={selected === fileName}
-                                    onClick={() => {
-                                        setSelected(fileName);
-                                    }}
-                                >
-                                    <Link
-                                        to={`/${convertPolishChars(fileName)}`}
-                                    >
-                                        <Typography>
-                                            {parseFileName(fileName)}
-                                        </Typography>
-                                    </Link>
-                                </MenuItem>
-                            );
-                        })}
+                        <SidebarHeader
+                            isCollapsed={isCollapsed}
+                            setIsCollapsed={setIsCollapsed}
+                            colors={colors}
+                        />
+                        <SidebarMenu
+                            csvFiles={csvFiles}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
                     </Menu>
                 </ProSidebar>
             </Box>
@@ -98,8 +54,8 @@ const Sidebar: FC<SidebarProps> = ({ csvFiles }) => {
     );
 };
 
-export default Sidebar;
-
 const Container = styled.div`
     height: 100vh;
 `;
+
+export default Sidebar;

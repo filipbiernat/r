@@ -9,7 +9,7 @@ import { CssBaseline, ThemeProvider, Theme } from "@mui/material";
 
 import Sidebar from "./components/Sidebar";
 import TableView from "./components/TableView";
-import { convertPolishChars } from "./utils/convertPolishChars";
+import { replacePolishChars } from "./utils/replacePolishChars";
 import { ColorModeContext, useMode } from "./styles/theme";
 
 const GITHUB_API_URL =
@@ -61,7 +61,7 @@ const App: FC = () => {
                                         path="/"
                                         element={
                                             <Navigate
-                                                to={`/${convertPolishChars(
+                                                to={`/${replacePolishChars(
                                                     csvFiles[0]
                                                 )}`}
                                             />
@@ -71,7 +71,7 @@ const App: FC = () => {
                                 {csvFiles.map((csvFile) => (
                                     <Route
                                         key={csvFile}
-                                        path={`/${convertPolishChars(csvFile)}`}
+                                        path={`/${replacePolishChars(csvFile)}`}
                                         element={
                                             <TableView
                                                 csvFilePath={`${GITHUB_RAW_URL}/${csvFile}.csv`}

@@ -3,6 +3,6 @@ const polishToLatinMap: { [key: string]: string } = {
     'Ą': 'A', 'Ć': 'C', 'Ę': 'E', 'Ł': 'L', 'Ń': 'N', 'Ó': 'O', 'Ś': 'S', 'Ź': 'Z', 'Ż': 'Z'
 };
 
-export const convertPolishChars = (str: string): string => {
+export const replacePolishChars = (str: string): string => {
     return str.split('').map(char => polishToLatinMap[char] || char).join('');
 };
