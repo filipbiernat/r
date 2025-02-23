@@ -25,7 +25,16 @@ const SidebarMenu: FC<SidebarMenuProps> = ({
                     onClick={() => setSelected(fileName)}
                 >
                     <Link to={`/${replacePolishChars(fileName)}`}>
-                        <Typography>{parseFileName(fileName)}</Typography>
+                        <Typography
+                            style={{
+                                whiteSpace: "normal",
+                                wordBreak: "break-word",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                            }}
+                        >
+                            {parseFileName(fileName)}
+                        </Typography>
                     </Link>
                 </MenuItem>
             ))}
