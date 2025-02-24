@@ -11,7 +11,7 @@ import styled from "styled-components";
 import Sidebar from "./components/Sidebar";
 import TableView from "./components/TableView";
 import { replacePolishChars } from "./utils/replacePolishChars";
-import { ColorModeContext, useMode } from "./styles/theme";
+import { ColorModeContext, useMode, tokens } from "./styles/theme";
 
 const GITHUB_API_URL =
     "https://api.github.com/repos/filipbiernat/RScraper/contents/data";
@@ -24,6 +24,7 @@ const App: FC = () => {
         Theme,
         { toggleColorMode: () => void }
     ];
+    const colors = tokens(theme.palette.mode);
 
     useEffect(() => {
         fetch(GITHUB_API_URL)
@@ -40,39 +41,38 @@ const App: FC = () => {
         <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                <Router>
-                    <ContainerForSidebarAndView>
-                        <Sidebar csvFiles={csvFiles} />
-                        <ContenerForView>
-                            <Routes>
-                                {csvFiles.length > 0 && (
-                                    <Route
-                                        path="/"
-                                        element={
-                                            <Navigate
-                                                to={`/${replacePolishChars(
-                                                    csvFiles[0]
-                                                )}`}
-                                            />
-                                        }
-                                    />
-                                )}
-                                {csvFiles.map((csvFile) => (
-                                    <Route
-                                        key={csvFile}
-                                        path={`/${replacePolishChars(csvFile)}`}
-                                        element={
-                                            <TableView
-                                                csvFilePath={`${GITHUB_RAW_URL}/${csvFile}.csv`}
-                                                fileName={csvFile}
-                                            />
-                                        }
-                                    />
-                                ))}
-                            </Routes>
-                        </ContenerForView>
-                    </ContainerForSidebarAndView>
-                </Router>
+                <ContainerForSidebarAndView>
+                    <Router>
+                        <Sidebar csvFiles={csvFiles} colors={colors} />
+                        <Routes>
+                            {csvFiles.length > 0 && (
+                                <Route
+                                    path="/"
+                                    element={
+                                        <Navigate
+                                            to={`/${replacePolishChars(
+                                                csvFiles[0]
+                                            )}`}
+                                        />
+                                    }
+                                />
+                            )}
+                            {csvFiles.map((csvFile) => (
+                                <Route
+                                    key={csvFile}
+                                    path={`/${replacePolishChars(csvFile)}`}
+                                    element={
+                                        <TableView
+                                            csvFilePath={`${GITHUB_RAW_URL}/${csvFile}.csv`}
+                                            fileName={csvFile}
+                                            colors={colors}
+                                        />
+                                    }
+                                />
+                            ))}
+                        </Routes>
+                    </Router>
+                </ContainerForSidebarAndView>
             </ThemeProvider>
         </ColorModeContext.Provider>
     );
@@ -82,12 +82,6 @@ const ContainerForSidebarAndView = styled.div`
     display: flex;
     height: 100vh;
     overflow: hidden;
-`; // The view appears on the RHS of the sidebar.
-
-const ContenerForView = styled.div`
-    padding: 20px;
-    flex-grow: 1;
-    overflow-y: auto;
-`; // The view is scrollable.
+`;
 
 export default App;
