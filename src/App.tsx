@@ -5,8 +5,7 @@ import {
     Routes,
     Navigate,
 } from "react-router-dom";
-import { CssBaseline, ThemeProvider, Theme } from "@mui/material";
-import styled from "styled-components";
+import { Box, CssBaseline, ThemeProvider, Theme } from "@mui/material";
 
 import Sidebar from "./components/Sidebar";
 import TableView from "./components/TableView";
@@ -41,7 +40,7 @@ const App: FC = () => {
         <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                <ContainerForSidebarAndView>
+                <Box className="app-container">
                     <Router>
                         <Sidebar csvFiles={csvFiles} colors={colors} />
                         <Routes>
@@ -72,16 +71,9 @@ const App: FC = () => {
                             ))}
                         </Routes>
                     </Router>
-                </ContainerForSidebarAndView>
+                </Box>
             </ThemeProvider>
         </ColorModeContext.Provider>
     );
 };
-
-const ContainerForSidebarAndView = styled.div`
-    display: flex;
-    height: 100vh;
-    overflow: hidden;
-`;
-
 export default App;

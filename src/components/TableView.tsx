@@ -1,6 +1,6 @@
 import { useEffect, useState, FC } from "react";
+import { Box, Typography } from "@mui/material";
 import Papa from "papaparse";
-import { Typography } from "@mui/material";
 
 import { parseFileName } from "../utils/parseFileName";
 
@@ -39,31 +39,13 @@ const TableView: FC<TableViewProps> = ({
     }, [csvFileName]);
 
     return (
-        <div
-            style={{
-                flexGrow: 1,
-            }}
-        >
-            <div
-                style={{
-                    width: "100%",
-                    padding: "20px",
-                    position: "relative",
-                }}
-            >
+        <Box className="table-view-container">
+            <Box className="table-view-header">
                 <Typography variant="h1" color={colors.grey[100]}>
                     {parseFileName(csvFileName)}
                 </Typography>
-            </div>
-            <div
-                style={{
-                    width: "100%",
-                    height: "calc(100% - 100px)",
-                    position: "relative",
-                    overflowY: "scroll",
-                    padding: "20px",
-                }}
-            >
+            </Box>
+            <Box className="table-view-content">
                 <table>
                     <thead>
                         <tr>
@@ -82,8 +64,8 @@ const TableView: FC<TableViewProps> = ({
                         ))}
                     </tbody>
                 </table>
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 };
 

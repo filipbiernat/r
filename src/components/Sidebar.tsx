@@ -26,11 +26,7 @@ const Sidebar: FC<SidebarProps> = ({ csvFiles, colors }) => {
     }, [csvFiles]);
 
     return (
-        <Box
-            className="sideBar"
-            sx={sidebarStyles(colors)}
-            style={{ height: "100%" }}
-        >
+        <Box sx={sidebarStyles(colors)} className="full-height">
             <ProSidebar collapsed={isCollapsed}>
                 <Menu iconShape="square">
                     <SidebarHeader
