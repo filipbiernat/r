@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 import Papa from "papaparse";
 
 import { parseFileName } from "../utils/parseFileName";
+import { processCsvData } from "../utils/processCsvData";
 import TableView from "./TableView";
 
 interface MainViewProps {
@@ -28,8 +29,9 @@ const MainView: FC<MainViewProps> = ({
                 download: true,
                 complete: (result) => {
                     const parsedData = result.data as string[][];
-                    csvFileCache[csvFilePath] = parsedData;
-                    setData(parsedData);
+                    const processedData = processCsvData(parsedData);
+                    csvFileCache[csvFilePath] = processedData;
+                    setData(processedData);
                 },
             });
         }
