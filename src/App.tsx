@@ -8,7 +8,7 @@ import {
 import { Box, CssBaseline, ThemeProvider, Theme } from "@mui/material";
 
 import Sidebar from "./components/Sidebar";
-import TableView from "./components/TableView";
+import MainView from "./components/MainView";
 import { replacePolishChars } from "./utils/replacePolishChars";
 import { ColorModeContext, useMode, tokens } from "./styles/theme";
 
@@ -61,7 +61,7 @@ const App: FC = () => {
                                     key={csvFile}
                                     path={`/${replacePolishChars(csvFile)}`}
                                     element={
-                                        <TableView
+                                        <MainView
                                             csvFilePath={`${GITHUB_RAW_URL}/${csvFile}.csv`}
                                             fileName={csvFile}
                                             colors={colors}

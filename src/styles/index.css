@@ -45,17 +45,17 @@ body,
   height: 100%;
 }
 
-.table-view-container {
+.main-view-container {
   flex-grow: 1;
 }
 
-.table-view-header {
+.main-view-header {
   width: 100%;
   padding: 20px;
   position: relative;
 }
 
-.table-view-content {
+.main-view-content {
   width: 100%;
   height: calc(100% - 100px);
   position: relative;
