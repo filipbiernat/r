@@ -18,7 +18,16 @@ const TableView: FC<TableViewProps> = ({ data }) => {
                 {data.slice(1).map((row, rowIndex) => (
                     <tr key={rowIndex}>
                         {row.map((cell, cellIndex) => (
-                            <td key={cellIndex}>{cell}</td>
+                            <td
+                                key={cellIndex}
+                                style={
+                                    cellIndex === 0
+                                        ? { fontWeight: "bold" }
+                                        : {}
+                                }
+                            >
+                                {cell}
+                            </td>
                         ))}
                     </tr>
                 ))}
