@@ -1,5 +1,5 @@
 import { createContext, useState, useMemo } from "react";
-import { createTheme, Theme, ThemeOptions } from "@mui/material/styles";
+import { createTheme, ThemeOptions } from "@mui/material/styles";
 
 // color design tokens export
 interface ColorShades {
@@ -229,46 +229,6 @@ export const tokens = (mode: "light" | "dark"): Tokens => ({
 });
 
 // mui theme settings
-interface PaletteColor {
-    main: string;
-}
-
-interface NeutralPalette {
-    dark: string;
-    main: string;
-    light: string;
-}
-
-interface BackgroundPalette {
-    default: string;
-}
-
-interface Palette {
-    mode: "light" | "dark";
-    primary: PaletteColor;
-    secondary: PaletteColor;
-    neutral: NeutralPalette;
-    background: BackgroundPalette;
-}
-
-import { CSSProperties } from "react";
-
-interface TypographyVariant extends CSSProperties {
-    fontFamily: string;
-    fontSize: number;
-}
-
-interface Typography {
-    fontFamily: string;
-    fontSize: number;
-    h1: TypographyVariant;
-    h2: TypographyVariant;
-    h3: TypographyVariant;
-    h4: TypographyVariant;
-    h5: TypographyVariant;
-    h6: TypographyVariant;
-}
-
 export const themeSettings = (mode: "light" | "dark"): ThemeOptions => {
     const colors = tokens(mode);
     return {
