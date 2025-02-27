@@ -6,7 +6,7 @@ interface TableViewProps {
 
 const TableView: FC<TableViewProps> = ({ data }) => {
     return (
-        <table>
+        <table className="table-view-main-table">
             <thead>
                 <tr>
                     {data[0]?.map((header, index) => (

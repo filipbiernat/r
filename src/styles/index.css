@@ -63,3 +63,14 @@ body,
   overflow-y: scroll;
   padding: 20px;
 }
+
+.table-view-main-table {
+  border-collapse: collapse;
+}
+
+.table-view-main-table th, .table-view-main-table td {
+  white-space: nowrap;
+  padding: 8px;
+  text-align: center; /* Center the text */
+  border: 1px solid #ddd;
+}
