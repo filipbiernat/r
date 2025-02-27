@@ -32,7 +32,7 @@ const Sidebar: FC<SidebarProps> = ({
     }, [csvFiles]);
 
     return (
-        <Box sx={sidebarStyles(colors)} className="full-height">
+        <Box sx={sidebarStyles(colors)} className="sidebar-container">
             <ProSidebar collapsed={isSidebarCollapsed}>
                 <Menu iconShape="square">
                     <SidebarHeader
