@@ -11,10 +11,16 @@ import SidebarMenu from "./SidebarMenu";
 interface SidebarProps {
     csvFiles: string[];
     colors: any;
+    isSidebarCollapsed: boolean;
+    setIsSidebarCollapsed: (isCollapsed: boolean) => void;
 }
 
-const Sidebar: FC<SidebarProps> = ({ csvFiles, colors }) => {
-    const [isCollapsed, setIsCollapsed] = useState(false);
+const Sidebar: FC<SidebarProps> = ({
+    csvFiles,
+    colors,
+    isSidebarCollapsed,
+    setIsSidebarCollapsed,
+}) => {
     const [selected, setSelected] = useState("");
 
     useEffect(() => {
@@ -27,15 +33,15 @@ const Sidebar: FC<SidebarProps> = ({ csvFiles, colors }) => {
 
     return (
         <Box sx={sidebarStyles(colors)} className="full-height">
-            <ProSidebar collapsed={isCollapsed}>
+            <ProSidebar collapsed={isSidebarCollapsed}>
                 <Menu iconShape="square">
                     <SidebarHeader
-                        isCollapsed={isCollapsed}
-                        setIsCollapsed={setIsCollapsed}
+                        isCollapsed={isSidebarCollapsed}
+                        setIsCollapsed={setIsSidebarCollapsed}
                         colors={colors}
                     />
 
-                    {!isCollapsed && (
+                    {!isSidebarCollapsed && (
                         <SidebarMenu
                             csvFiles={csvFiles}
                             selected={selected}

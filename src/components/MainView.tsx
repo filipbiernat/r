@@ -10,6 +10,7 @@ interface MainViewProps {
     csvFilePath: string;
     fileName: string;
     colors: any;
+    isSidebarCollapsed: boolean;
 }
 
 const csvFileCache: { [key: string]: string[][] } = {};
@@ -18,6 +19,7 @@ const MainView: FC<MainViewProps> = ({
     csvFilePath,
     fileName: csvFileName,
     colors,
+    isSidebarCollapsed,
 }) => {
     const [data, setData] = useState<string[][]>([]);
 
@@ -42,7 +44,14 @@ const MainView: FC<MainViewProps> = ({
     }, [csvFileName]);
 
     return (
-        <Box className="main-view-container">
+        <Box
+            className="main-view-container"
+            sx={{
+                width: isSidebarCollapsed
+                    ? "calc(100% - 80px)"
+                    : "calc(100% - 360px)",
+            }}
+        >
             <Box className="main-view-header">
                 <Typography variant="h1" color={colors.grey[100]}>
                     {parseFileName(csvFileName)}

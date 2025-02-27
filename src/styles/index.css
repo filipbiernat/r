@@ -47,6 +47,7 @@ body,
 
 .main-view-container {
   flex-grow: 1;
+  transition: width 0.3s;
 }
 
 .main-view-header {

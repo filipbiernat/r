@@ -24,6 +24,7 @@ const App: FC = () => {
         { toggleColorMode: () => void }
     ];
     const colors = tokens(theme.palette.mode);
+    const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
     useEffect(() => {
         fetch(GITHUB_API_URL)
@@ -42,7 +43,12 @@ const App: FC = () => {
                 <CssBaseline />
                 <Box className="app-container">
                     <Router>
-                        <Sidebar csvFiles={csvFiles} colors={colors} />
+                        <Sidebar
+                            csvFiles={csvFiles}
+                            colors={colors}
+                            isSidebarCollapsed={isSidebarCollapsed}
+                            setIsSidebarCollapsed={setIsSidebarCollapsed}
+                        />
                         <Routes>
                             {csvFiles.length > 0 && (
                                 <Route
@@ -65,6 +71,9 @@ const App: FC = () => {
                                             csvFilePath={`${GITHUB_RAW_URL}/${csvFile}.csv`}
                                             fileName={csvFile}
                                             colors={colors}
+                                            isSidebarCollapsed={
+                                                isSidebarCollapsed
+                                            }
                                         />
                                     }
                                 />
