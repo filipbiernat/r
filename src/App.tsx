@@ -51,21 +51,33 @@ const App: FC = () => {
                         />
                         <Routes>
                             {csvFiles.length > 0 && (
-                                <Route
-                                    path="/"
-                                    element={
-                                        <Navigate
-                                            to={`/${replacePolishChars(
-                                                csvFiles[0]
-                                            )}`}
-                                        />
-                                    }
-                                />
+                                <>
+                                    <Route
+                                        path="/"
+                                        element={
+                                            <Navigate
+                                                to={`/r/${replacePolishChars(
+                                                    csvFiles[0]
+                                                )}`}
+                                            />
+                                        }
+                                    />
+                                    <Route
+                                        path="/r"
+                                        element={
+                                            <Navigate
+                                                to={`/r/${replacePolishChars(
+                                                    csvFiles[0]
+                                                )}`}
+                                            />
+                                        }
+                                    />
+                                </>
                             )}
                             {csvFiles.map((csvFile) => (
                                 <Route
                                     key={csvFile}
-                                    path={`/${replacePolishChars(csvFile)}`}
+                                    path={`/r/${replacePolishChars(csvFile)}`}
                                     element={
                                         <MainView
                                             csvFilePath={`${GITHUB_RAW_URL}/${csvFile}.csv`}
