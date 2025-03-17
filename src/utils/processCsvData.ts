@@ -21,15 +21,19 @@ const removeDuplicateDates = (csvData: string[][]): string[][] => {
     return csvData.map(row => row.filter((_, index) => !columnsToRemove.has(index)));
 };
 
-const filterEmptyRows = (csvData: string[][]): string[][] => {
-    return csvData.filter(row => row.some(cell => cell));
+const filterRowsWithNoRecentData = (csvData: string[][]): string[][] => {
+    return csvData.filter(row => {
+        const start = Math.max(1, row.length - 3); // Start from the 3rd last cell, but ignore the first cell
+        const lastCells = row.slice(start);
+        return lastCells.some(cell => cell);
+    });
 };
 
 export const processCsvData = (csvData: string[][]): string[][] => {
     if (csvData.length > 0) {
         csvData[0] = removeTimeFromDates(csvData[0]);
         csvData = removeDuplicateDates(csvData);
-        csvData = filterEmptyRows(csvData);
+        csvData = filterRowsWithNoRecentData(csvData);
     }
     return csvData;
 };
