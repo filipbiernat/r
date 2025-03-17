@@ -1,4 +1,12 @@
 import { FC } from "react";
+import "../styles/TableView.css";
+import {
+    Table,
+    TableHead,
+    TableBody,
+    TableRow,
+    TableCell,
+} from "@material-ui/core";
 
 interface TableViewProps {
     data: string[][];
@@ -6,19 +14,19 @@ interface TableViewProps {
 
 const TableView: FC<TableViewProps> = ({ data }) => {
     return (
-        <table className="table-view-main-table">
-            <thead>
-                <tr>
+        <Table className="table-view-main-table">
+            <TableHead>
+                <TableRow>
                     {data[0]?.map((header, index) => (
-                        <th key={index}>{header}</th>
+                        <TableCell key={index}>{header}</TableCell>
                     ))}
-                </tr>
-            </thead>
-            <tbody>
+                </TableRow>
+            </TableHead>
+            <TableBody>
                 {data.slice(1).map((row, rowIndex) => (
-                    <tr key={rowIndex}>
+                    <TableRow key={rowIndex}>
                         {row.map((cell, cellIndex) => (
-                            <td
+                            <TableCell
                                 key={cellIndex}
                                 style={
                                     cellIndex === 0
@@ -27,12 +35,12 @@ const TableView: FC<TableViewProps> = ({ data }) => {
                                 }
                             >
                                 {cell}
-                            </td>
+                            </TableCell>
                         ))}
-                    </tr>
+                    </TableRow>
                 ))}
-            </tbody>
-        </table>
+            </TableBody>
+        </Table>
     );
 };
 
